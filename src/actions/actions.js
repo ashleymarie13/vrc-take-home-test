@@ -62,7 +62,7 @@ function constructParamString(params) {
 		)
 
 
-	console.log('string = ',searchString)
+	console.log('string = ', searchString)
 	return searchString
 
 }

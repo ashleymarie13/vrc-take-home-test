@@ -29,7 +29,7 @@ function params(
 	state = {
 		search: "",
 		sort: "",
-		tools: PLATFORM.CROSS_PLATFORM // defaulting to cross platform but might want to move this up
+		platform: PLATFORM.CROSS_PLATFORM // defaulting to cross platform but might want to move this up
 	}, action) {
 	switch (action.type) {
 

@@ -3,9 +3,6 @@ import { connect } from 'react-redux'
 import WorldResults from './WorldResults'
 
 class Results extends Component {
-	constructor(props) {
-		super(props)
-	}
 
 	render() {
 		const { isFetching, results } = this.props
@@ -43,11 +40,12 @@ state = {
 }
 */
 function mapStateToProps(state) {
-	const { params, worldResults } = state
-	const { isFetching, results } = worldResults || 
-									{ isFetching: true,
-									   results: []
-									}
+	const { isFetching, results } = 
+		state.worldResults || 
+		{ 
+			isFetching: true,
+			results: []
+		}
 	return {
 		isFetching, results
 	}

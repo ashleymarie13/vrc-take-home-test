@@ -13,7 +13,7 @@ export const SORT = {
 	UPDATED: 'updated'
 }
 
-export const PLATFORM {
+export const PLATFORM = {
 	PC: 'standalonewindows',
 	QUEST: 'android',
 	CROSS_PLATFORM: 'standalonewindows,android'

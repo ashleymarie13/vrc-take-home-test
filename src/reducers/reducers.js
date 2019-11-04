@@ -7,7 +7,7 @@ import {
 	RECEIVE_WORLD_RESULTS,
 } from '../actions/actions'
 
-import PLATFORM from './constants'
+import { PLATFORM } from '../constants'
 
 /* State View
 
@@ -49,7 +49,7 @@ function params(
 				tools: action.platform,
 			})
 		default:
-			state
+			return state
 	}
 }
 

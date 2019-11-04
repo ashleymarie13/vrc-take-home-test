@@ -67,11 +67,11 @@ export function fetchWorlds(params) {
 
 	var paramString = constructParamString(params)
 
-	return dispatch => {
+	return function(dispatch) {
 		dispatch(requestWorldResults(params))
 		return fetch(`https://vrchat.com/api/1/worlds?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26${paramString}.json`)
 			.then(
-				response => response.json(),
+				response => console.log(response.json()),
 				error => console.log('There was an error', error) //TODO error handling
 			)
 			.then(json =>

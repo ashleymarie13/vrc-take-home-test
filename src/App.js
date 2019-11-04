@@ -9,7 +9,11 @@ import { fetchWorlds, updateSearchText } from './actions/actions'
 /// REMOVE for testing
 const store = configureStore()
 store.dispatch(updateSearchText("hi"))
-store.dispatch(fetchWorlds({})).then(() => console.log(store.getState()))
+store.dispatch(fetchWorlds({
+    search: 'sleep night',
+    sort: 'popularity',
+    platform: 'standalonewindows,android',
+  })).then(() => console.log(store.getState()))
 
 
 function App() {

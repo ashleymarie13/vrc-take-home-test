@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch'
-import SYSTEM_PARAMS from '../constants'
+import { SYSTEM_PARAMS } from '../constants'
 
 export const UPDATE_SEARCH_TEXT = 'UPDATE_SEARCH_TEXT'
 export const UPDATE_TERM = 'UPDATE_TERM'
@@ -41,42 +41,43 @@ export function receiveWorldResults(params, json) {
 	return {
 		type: RECEIVE_WORLD_RESULTS,
 		params,
-		results: json.data.children.map(child => child.data),
+		results: json,//.data.children.map(child => child.data),
 		receivedAt: Date.now()
 	}
 }
 
 function constructParamString(params) {
-	//TODO concat spaces in search term
-	// construct from System params and params
-	let searchString = ''
 
-	return '&search=foo'
+	let searchText = params.search.replace(' ', '+')
+	
+	let searchString = ''
+	searchString = searchString.concat(
+		'&search=', encodeURI(searchText), // only uri encoding this because its the only place recieving text input from the user
+		'&sort=', params.sort, 
+		'&platform=', params.platform,
+		'&order=', SYSTEM_PARAMS.order,
+		'&n=', SYSTEM_PARAMS.n,
+		'&offset=',SYSTEM_PARAMS.offset,
+		'&seven=',SYSTEM_PARAMS.seven
+		)
+
+
+	console.log('string = ',searchString)
+	return searchString
 
 }
 
 export function fetchWorlds(params) {
-	// check all params are available from user
-	//search, sort,platform enums
-	// set other ones
-	// make fetch call
-	params = {
-		...params,
-		// set any missing values
-	}
-
 	var paramString = constructParamString(params)
 
 	return function(dispatch) {
 		dispatch(requestWorldResults(params))
-		return fetch(`https://vrchat.com/api/1/worlds?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26${paramString}.json`)
+		return fetch(`https://vrchat.com/api/1/worlds?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26${paramString}`)
 			.then(
-				response => console.log(response.json()),
+				response => response.json(),
 				error => console.log('There was an error', error) //TODO error handling
 			)
-			.then(json =>
-				dispatch(receiveWorldResults(params, json))
-			)
+			.then(json => dispatch(receiveWorldResults(params, json)))
 	}
 
 }

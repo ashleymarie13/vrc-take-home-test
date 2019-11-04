@@ -15,7 +15,7 @@ state = {
 	params: {
 		search: "some text",
 		sort: POPULARITY,
-		tools: CROSS_PLATFORM,
+		platform: CROSS_PLATFORM,
 	},
 	worldResults: {
 		isFetching: boolean,
@@ -46,7 +46,7 @@ function params(
 		case UPDATE_PLATFORM:
 			return Object.assign({}, state, {
 				...state,
-				tools: action.platform,
+				platform: action.platform,
 			})
 		default:
 			return state

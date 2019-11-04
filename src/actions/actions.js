@@ -1,7 +1,33 @@
 import fetch from 'cross-fetch'
 import SYSTEM_PARAMS from '../constants'
 
+export const UPDATE_SEARCH_TEXT = 'UPDATE_SEARCH_TEXT'
+export const UPDATE_TERM = 'UPDATE_TERM'
+export const UPDATE_PLATFORM = 'UPDATE_PLATFORM'
 export const REQUEST_WORLD_RESULTS  = 'REQUEST_WORLD_RESULTS'
+export const RECEIVE_WORLD_RESULTS = 'RECEIVE_WORLD_RESULTS'
+
+export function updateSearchText(text) {
+	return {
+		type: UPDATE_SEARCH_TEXT,
+		text,
+	}
+}
+
+export function updateTerm(term) {
+	return {
+		type: UPDATE_TERM,
+		term,
+	}
+}
+
+export function updatePlatform(platform) {
+	return {
+		type: UPDATE_PLATFORM,
+		platform,
+	}
+}
+
 // TODO 1. start a loading dials while resukts are loadng 2. disable search buttin
 export function requestWorldResults(params) {
 	return {
@@ -10,9 +36,8 @@ export function requestWorldResults(params) {
 	}
 }
 
-export const RECEIVE_WORLD_RESULTS = 'RECEIVE_WORLD_RESULTS'
 
-export function receiveWorldResults(params) {
+export function receiveWorldResults(params, json) {
 	return {
 		type: RECEIVE_WORLD_RESULTS,
 		params,
@@ -21,28 +46,6 @@ export function receiveWorldResults(params) {
 	}
 }
 
-export const DISABLE_SEARCH = 'DISABLE_SEARCH'
-
-export function disableSearch() {
-	return {
-		type: DISABLE_SEARCH
-	}
-}
-
-//TODO move these enums
-export const sortTerms = {
-	POPULARITY: 'popularity',
-	HEAT: 'heat',
-	FAVORITES: 'favorites',
-	CREATED: 'created',
-	UPDATED: 'updated'
-}
-
-export const platform {
-	PC: 'standalonewindows',
-	QUEST: 'android',
-	CROSS_PLATFORM: 'standalonewindows,android'
-}
 function constructParamString(params) {
 	//TODO concat spaces in search term
 	// construct from System params and params

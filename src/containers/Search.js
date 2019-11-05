@@ -11,37 +11,55 @@ import { PLATFORM, SORT } from '../constants'
 class Search extends Component {
 	constructor(props) {
 		super(props)
+		this.makeFetchCall = this.makeFetchCall.bind(this)
+		this.onToolChange = this.onToolChange.bind(this)
 	}
 
-	canSearch(search, sort, platform) {
-		this.dispatch(fetchWorlds({}))
-		if (search && sort) {
-			if(!platform) {
-				platform = PLATFORM.CROSS_PLATFORM
+	makeFetchCall() {
+		console.log("here", this.props.search, this.props.sort, this.props.platform)
+		if (this.props.search && this.props.sort) {
+			let params = {
+				search: this.props.search,
+				sort: this.props.sort,
+				platform: this.props.platform
 			}
-			console.log('Cannot search yet')
-			return true
+			if(!this.props.platform) {
+				params.platform = PLATFORM.CROSS_PLATFORM
+			}
+			this.props.dispatch(fetchWorlds(params))
 		}
-		console.log('Cannot search yet')
-		return false
+		return null
+	}
+
+	onToolChange(event) {
+		const newPlatform = event.target.value
+		if(!this.props.platform) { // if it is null
+			this.props.dispatch(updatePlatform(newPlatform))
+		} else if (this.props.platform == newPlatform) {
+			// do nothing
+		} else { // if they differ
+			this.props.dispatch(updatePlatform(PLATFORM.CROSS_PLATFORM))
+		}
 	}
 
 	render() {
-		const { search, sort, platform, onClick, onBlur, onDropdownChange, dispatch } = this.props
+		const { search, sort, platform, onClick, onBlur, onDropdownChange } = this.props
 		
 		return (
-			<div>
-				<div>
-					<input type="text" onBlur={onBlur}/>
-					<span>
+			<div className="container-fluid">
+				<div className="row">
+					<div className="col-8">
+						<input type="text" onBlur={onBlur}/>
+					</div>
+					<div className="col-4">
 						<button
-							onClick={dispatch(fetchWorlds({}))}
-							<span className="fa fa-search"></span>
+							onClick={this.makeFetchCall}>
+							<span className="fa fa-search">search</span>
 						</button>
-					</span>
+					</div>
 				</div>
 				<div>
-					<select onChange={onDropdownChange}>
+					<select onChange={onDropdownChange} defaultValue={SORT.POPULARITY}>
 						<option value={SORT.POPULARITY}>{SORT.POPULARITY}</option>
 						<option value={SORT.HEAT}>{SORT.HEAT}</option>
 						<option value={SORT.FAVORITES}>{SORT.FAVORITES}</option>
@@ -49,10 +67,22 @@ class Search extends Component {
 						<option value={SORT.UPDATED}>{SORT.UPDATED}</option>
 					</select>
 				</div>
-				<div>
-					
+				<div className="row">
+					<h3> Tools </h3>
+				    <input type="checkbox" 
+					    onChange={this.onToolChange}
+					    value={PLATFORM.PC}
+					    defaultChecked/>
+				    <label className="form-check-label">{PLATFORM.PC}</label>
+				    <input type="checkbox" 
+					    className="form-check-input"
+					    onChange={this.onToolChange}
+					    value={PLATFORM.QUEST}
+					    defaultChecked/>
+				    <label className="form-check-label">{PLATFORM.QUEST}</label>
 				</div>
 			</div>
+		
 		)
 	}
 }
@@ -84,17 +114,10 @@ const mapStateToProps = (state, ownProps) => {
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
-		onClick: (event, others) => {
-			console.log('click')
-			dispatch(fetchWorlds(ownProps))
-		},
 		onBlur: event => dispatch(updateSearchText(event.target.value)),
 		onDropdownChange: event => dispatch(updateTerm(event.target.value)),
 		onToolChange: event => dispatch(updatePlatform(event.target.value)),
-		dispatch: func => dispatch(func())
-
-
-
+		dispatch
 	}
 }
 export default connect(

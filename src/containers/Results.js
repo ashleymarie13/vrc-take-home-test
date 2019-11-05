@@ -8,9 +8,9 @@ class Results extends Component {
 		const { isFetching, results } = this.props
 		return (
 			<div className='Results'>
-				{isFetching && results.length === 0 && <h2> Loading... </h2> }
-				{!isFetching && results.length === 0 && <h2> No Results :( </h2> }
-				{results.length > 0 && (
+				{isFetching && !results && <h2> Loading... </h2> }
+				{!isFetching && !results && <h2> No Results :( </h2> }
+				{results && results.length > 0 && (
 					<div>
 						<WorldResults results = { this.props.results} />
 					</div>

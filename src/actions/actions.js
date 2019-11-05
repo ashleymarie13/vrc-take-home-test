@@ -63,7 +63,7 @@ function constructParamString(params) {
 
 
 	console.log('string = ', searchString)
-	return searchString
+	return searchString.toLowerCase()
 
 }
 

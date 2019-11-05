@@ -1,4 +1,4 @@
-I used Create React App to finish the project.
+I used Create React App to create the project.
 I focused on the functionality not the styling so it looks pretty bare bones so beware (but that just means its in theme with spooky season o.O )
 
 The main functionality works except for a few edge casesand it only returns 10 results at time without any pagination.

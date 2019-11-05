@@ -8,15 +8,17 @@ export default class WorldResults extends Component {
 				{this.props.results.map((result, i) =>(
 					<div key={i} className="world-info">
 						<img className="world-icon"
-							src="{result.thumbnailImageUrl}"
-							alt="World image thumbnail" />
+							src="https://pbs.twimg.com/media/Dw--gpgX0AEwoQi.jpg"
+							alt="World image thumbnail" 
+							width="350" height="200"/>
 						<h2>{result.name}</h2>
 						<p>{result.tags}</p>
+						{result.thumbnailImageUrl}
 					</div>
 					))
-				
 				}
-			</div>)
+			</div>
+		)
 	}
 }
 

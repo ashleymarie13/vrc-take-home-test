@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import WorldResults from './WorldResults'
 
 class Results extends Component {
-
+	//TOD add error handling for undefined
 	render() {
 		const { isFetching, results } = this.props
 		return (

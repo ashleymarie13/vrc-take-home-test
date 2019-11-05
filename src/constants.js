@@ -6,11 +6,11 @@ export const SYSTEM_PARAMS = {
 }
 
 export const SORT = {
-	POPULARITY: 'popularity',
-	HEAT: 'heat',
-	FAVORITES: 'favorites',
-	CREATED: 'created',
-	UPDATED: 'updated'
+	POPULARITY: 'Popularity',
+	HEAT: 'Heat',
+	FAVORITES: 'Favorites',
+	CREATED: 'Created',
+	UPDATED: 'Updated'
 }
 
 export const PLATFORM = {

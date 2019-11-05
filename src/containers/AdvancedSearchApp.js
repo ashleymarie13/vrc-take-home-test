@@ -7,6 +7,7 @@ class AdvancedSearchApp extends Component {
 	render() {
 		return (
 			<div>
+				<Search />
 				<Results />
 			</div>
 		)

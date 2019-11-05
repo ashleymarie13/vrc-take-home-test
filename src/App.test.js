@@ -7,4 +7,4 @@ it('renders without crashing', () => {
   ReactDOM.render(<App />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
-// make sure the is a default platform at all times
+// TODO make sure the is a default platform at all times

@@ -17,11 +17,14 @@ class Search extends Component {
 
 	makeFetchCall() {
 		console.log("here", this.props.search, this.props.sort, this.props.platform)
-		if (this.props.search && this.props.sort) {
+		if (this.props.search) {
 			let params = {
 				search: this.props.search,
 				sort: this.props.sort,
 				platform: this.props.platform
+			}
+			if (!this.props.sort) {
+				params.sort = SORT.POPULARITY
 			}
 			if(!this.props.platform) {
 				params.platform = PLATFORM.CROSS_PLATFORM
@@ -31,14 +34,29 @@ class Search extends Component {
 		return null
 	}
 
+	// TODO this one needs work. Currently works when both values are checked initially
+	// once both values are unchecked things get weird @.@
 	onToolChange(event) {
 		const newPlatform = event.target.value
-		if(!this.props.platform) { // if it is null
-			this.props.dispatch(updatePlatform(newPlatform))
-		} else if (this.props.platform == newPlatform) {
-			// do nothing
-		} else { // if they differ
-			this.props.dispatch(updatePlatform(PLATFORM.CROSS_PLATFORM))
+
+		if(this.props.platform === PLATFORM.CROSS_PLATFORM) {
+			if(newPlatform === PLATFORM.PC) {
+				this.props.dispatch(updatePlatform(PLATFORM.QUEST))
+			} else if(newPlatform === PLATFORM.QUEST) {
+				this.props.dispatch(updatePlatform(PLATFORM.PC))
+			}
+		} else if(this.props.platform === PLATFORM.PC) {
+			if (newPlatform === PLATFORM.QUEST) {
+				this.props.dispatch(updatePlatform(PLATFORM.CROSS_PLATFORM))
+			} else {
+				this.props.dispatch(updatePlatform(PLATFORM.CROSS_PLATFORM))
+			}
+		} else if(this.props.platform === PLATFORM.QUEST) {
+			if (newPlatform === PLATFORM.PC) {
+				this.props.dispatch(updatePlatform(PLATFORM.CROSS_PLATFORM))
+			} else {
+				this.props.dispatch(updatePlatform(PLATFORM.CROSS_PLATFORM))
+			}
 		}
 	}
 

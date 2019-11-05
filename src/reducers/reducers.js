@@ -28,7 +28,7 @@ state = {
 function params(
 	state = {
 		search: "",
-		sort: "",
+		sort: PLATFORM.POPULARITY, // default because selector starts at popularity
 		platform: PLATFORM.CROSS_PLATFORM // defaulting to cross platform but might want to move this up
 	}, action) {
 	switch (action.type) {
